@@ -1,11 +1,18 @@
-// fs (file system)(文件系統)
-const fs = require("fs");
-fs.writeFile("myFile.txt", "今天天氣不錯", (e) => {
-  if (e) throw e;
-  console.log("文件已經撰寫完畢");
-});
+const http = require("http"); //引入http這個module
+// 用http.createServer()創建網頁伺服器，並在createServer()內給callback function with 2 parameters
+// 該callback function會自動被Node.js執行
+// 此時，會創建request object(代表把http request的內容作成一個object，還外加一些其他的屬性)
+// 及response object(代表把http response的內容作成一個object，還外加一些其他的屬性)
+const server = http.createServer((req, res) => {
+  // console.log(req.headers);
+  res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
+  // 設定header裡面的內容
+  res.write("歡迎來到我的網頁");
+  res.end();
+}); // callback function with 2 parameters
 
-fs.readFile("myFile.txt", "utf8", (e, data) => {
-  if (e) throw e;
-  console.log(data);
+// 只要啟動伺服器，就會聆聽是否有request請求
+server.listen(3000, () => {
+  console.log("伺服器正在port3000上運行");
 });
+// 把http request的內容作成一個object，還外加一些其他的屬性
